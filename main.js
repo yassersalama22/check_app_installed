@@ -22,9 +22,11 @@ function detectAndLaunchWhatsApp(callback) {
 detectAndLaunchWhatsApp(function(isInstalled) {
     if (isInstalled) {
         console.log('WhatsApp is installed');
+        alert('installed');
         // Optionally, you can redirect to WhatsApp or perform another action
     } else {
         console.log('WhatsApp is not installed');
+        alert('not installed');
         // Fallback action: redirect to the App Store or show a message
     }
 });
