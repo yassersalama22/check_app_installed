@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+    <title>WhatsApp Detection</title>
 </head>
 
 <body>
-    <script src="main.js"></script>
+    <div>Try 1.0</div>
+    <script type="text/javascript">
+        function openWhatsApp() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+            var fallbackURL = "https://www.whatsapp.com"; // Fallback URL if WhatsApp is not installed
+            var whatsappURL = "whatsapp://"; // WhatsApp URL scheme
+
+            if (isIOS) {
+                window.location = whatsappURL;
+                setTimeout(function () {
+                    // If WhatsApp is not installed, it will fallback to this URL
+                    window.location = fallbackURL;
+                }, 1500);
+            } else {
+                // For Android or other platforms
+                window.location = whatsappURL;
+                setTimeout(function () {
+                    window.location = fallbackURL;
+                }, 1500);
+            }
+        }
+
+        openWhatsApp();
+    </script>
+
 </body>
 
 </html>
