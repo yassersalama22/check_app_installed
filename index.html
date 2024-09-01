@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>WhatsApp Detection</title>
-</head>
-
-<body>
-
+  </head>
+  <body>
     <div id="message"></div>
 
     <script type="text/javascript">
-        function detectWhatsApp() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            var isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      async function openWhatsApp() {
+        return new Promise((resolve, reject) => {
+          const start = Date.now();
+          const iframe = document.createElement('iframe');
+          iframe.style.display = 'none';
+          iframe.src = 'whatsapp://';
+          document.body.appendChild(iframe);
 
-            var fallbackURL = "https://www.whatsapp.com"; // Fallback URL if WhatsApp is not installed
-            var whatsappURL = "whatsapp://"; // WhatsApp URL scheme
+          const timeout = setTimeout(() => {
+            // If the app was not opened in time, reject the promise
+            reject('WhatsApp is not installed.');
+          }, 1500);
 
-            var messageDiv = document.getElementById("message");
-
-            if (isIOS) {
-                window.location = whatsappURL;
-                setTimeout(function () {
-                    messageDiv.innerText = "WhatsApp is not installed.";
-                }, 1500);
-            } else {
-                window.location = whatsappURL;
-                setTimeout(function () {
-                    messageDiv.innerText = "WhatsApp is not installed.";
-                }, 1500);
+          // Check if WhatsApp was opened
+          setTimeout(() => {
+            const elapsed = Date.now() - start;
+            if (elapsed < 1500) {
+              clearTimeout(timeout);
+              resolve('WhatsApp is installed.');
             }
+          }, 50); // This is a simple delay before resolving the promise
 
-            // Check if WhatsApp was opened
-            setTimeout(function () {
-                messageDiv.innerText = "WhatsApp is installed.";
-            }, 50); // This is a simple delay before showing the installed message
+          setTimeout(() => {
+            document.body.removeChild(iframe);
+          }, 2000); // Clean up the iframe after some time
+        });
+      }
+
+      async function checkWhatsApp() {
+        const messageDiv = document.getElementById('message');
+
+        try {
+          const result = await openWhatsApp();
+          messageDiv.innerText = result;
+          // Continue with further actions if WhatsApp is installed
+        } catch (error) {
+          messageDiv.innerText = error;
+          // Handle the case where WhatsApp is not installed
         }
+      }
 
-        detectWhatsApp();
+      checkWhatsApp();
     </script>
-
-</body>
-
+  </body>
 </html>
