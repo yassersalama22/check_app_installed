@@ -6,7 +6,7 @@
   <body>
     <div id="message"></div>
     <div>
-      <p>Hello 1.0</p>
+      <p>Hello 1.1</p>
     </div>
     <script type="text/javascript">
       async function openWhatsApp() {
@@ -14,7 +14,7 @@
           const start = Date.now();
           const iframe = document.createElement('iframe');
           iframe.style.display = 'none';
-          iframe.src = 'whatsapp://';
+          iframe.src = 'nagwa://';
           document.body.appendChild(iframe);
 
           const timeout = setTimeout(() => {
