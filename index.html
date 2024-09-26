@@ -10,21 +10,26 @@
     <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_system">PDF-Download</a></p>
     <a href="com.linkdev.mohapfe://Linkdev_Mobile_MOHAP_FE/Appointments?Status=4" target="_blank">Status4</a></p>
 
-    <h1>Post Object to App</h1>
+    <h1>Post Object with Error Handling</h1>
     <button id="postObjectButton">Send Object to App</button>
 
     <script>
         document.getElementById('postObjectButton').addEventListener('click', function() {
-            // Define the object you want to send
-            var message = {
-                action: "openExternalBrowser",
-                url: "https://www.outsystems.com/forums/discussion/60483/inappbrowser-plugin-change-toolbar-css-style/"
-            };
-            
-            // Send the object to the app via postMessage
-            window.parent.postMessage(message, '*');
+            try {
+                // Define the object you want to send
+                var message = {
+                    action: "openExternalBrowser",
+                    url: "https://www.outsystems.com/forums/discussion/60483/inappbrowser-plugin-change-toolbar-css-style/"
+                };
+                
+                // Send the object to the app via postMessage
+                window.parent.postMessage(message, '*');
+                console.log('Message sent successfully:', message);
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('Error: Could not send the message!');
+            }
         });
     </script>
-
 </body>
 </html>
