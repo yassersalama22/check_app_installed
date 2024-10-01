@@ -26,7 +26,7 @@
                 
                 if (typeof window !== 'undefined') {
                         const target = window?.cordova_iab ?? window?.webkit?.messageHandlers?.cordova_iab;
-                        target?.postMessage(JSON.stringify(message););
+                        target?.postMessage(JSON.stringify(message));
                       }
  
                 console.log('Message sent successfully:', message);
